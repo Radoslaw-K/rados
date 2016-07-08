@@ -23,6 +23,7 @@
     <!-- Custom Styles for this template -->
     <link href="{{ static_url("radoslaw_therm.css") }}" rel="stylesheet">	
     <link href="{{ static_url("over_jumbo.css") }}" rel="stylesheet">		
+    <link href="{{ static_url("profile_image.css") }}" rel="stylesheet">		
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -69,7 +70,7 @@ NAVIGATION BAR
 <!---========================================
 MAIN MESSAGE
 ===========================================--->
-<div class="jumbotron">
+<div id="BOARD" class="jumbotron">
   <div class="container">
 	<h1>Raspberry Pi, WebIO!</h1>
 	<p>This page allows to remotely control Raspberry Pi at Dataplicity office.</p>
@@ -77,12 +78,70 @@ MAIN MESSAGE
   </div>
 </div>
 
+<div id="TABS" class="container">
+
+<img src="{{ static_url("cool_cat.jpg") }}" id="profile_image" alt="Test Image" width="300" height="260" /> <!--- This image has to be here because it'sfloat and margin settings are relative to the container --->
+
+
+  <ul class="nav nav-tabs" role="tablist">
+       
+         <li role="presentation" class="active">
+            <a href="#Home" aria-controls="Home" role="tab" data-toggle="tab">Home</a>
+        </li>
+       
+         <li role="presentation">
+            <a href="#Profile" aria-controls="Profile" role="tab" data-toggle="tab">Profile</a>
+        </li>
+       
+
+         <li role="presentation">
+            <a href="#Experimental" aria-controls="Experimental" role="tab" data-toggle="tab">Experimental</a>
+        </li>
+
+  </ul>
+
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="Home">@@@</div>
+    <div role="tabpanel" class="tab-pane fade" id="Profile">,,,</div>
+    <div role="tabpanel" class="tab-pane fade" id="Experimental">
+
+ 		<div class="col-md-4"> <!--- FILE UP/DOwN --->  
+            <div id="_file_upload_">
+    			<h2>Upload a file</h2>
+    			<p>Here you can upload a file that will be saved on the raspberry PI. </p>
+    			<form enctype="multipart/form-data" action="" method="POST">
+    			Select a file to upload:
+    			<input type="file" name="file1" /> 
+    			<br>
+    			<input type="submit" class="btn btn-primary" value="Upload file"/> 
+    			</form>
+    			<br>
+    			</div>
+
+			<div id="_file_download_">
+    			<h2>Download a sample file</h2>
+    			<p>This is used to test download functionality. Currently only a sample file is available to download. </p>
+    			<a href="/downloads" download> 
+    			<input type="button" class="btn btn-primary"   id="-" name="-" value="Download file"/>
+    			</a>
+			</div>
+		</div> <!--- /FILE UP/DOWN --->
+
+   
+
+    </div>
+  </div>
+
+</div>
+
+<div class="container" id="MAIN">
 <!---========================================
 TEMPERATURE, LED's , FILE UPLOAD , LOGGER, LIVESTREAM, DISPLAY MESSAGE
 ===========================================--->
 	  
 <div class="container"> <!--- container ---> 
-	<img src="{{ static_url("cool_cat.jpg") }} alt="Test Image" width="300" height="260" style="float:right; border:5px solid white; margin-top:-225px; margin-right:50px" /> <!--- This image has to be here because it'sfloat and margin settings are relative to the container --->
 	<div class="row"> <!--- row --->	
 		<h2>Processors Temperature</h2>	  
 		<div id="div-with-bg">
@@ -94,36 +153,7 @@ TEMPERATURE, LED's , FILE UPLOAD , LOGGER, LIVESTREAM, DISPLAY MESSAGE
 		</div>
 	</div> <!--- /row ---> 	
 	
-	<hr>
 	
-	<div class="row"> <!--- row ---> 
-		<div class="col-md-4"> <!--- PLACEHOLDER --->
-		  <h2>Placeholder</h2>	
-		
-		</div> <!--- /PLACEHOLDER  --->
-
-
-		<div class="col-md-4"> <!--- FILE UPLOAD --->  
-			<h2>Upload a file</h2>
-			<p>Here you can upload a file that will be saved on the raspberry PI. </p>
-			<form enctype="multipart/form-data" action="" method="POST">
-			Select a file to upload:
-			<input type="file" name="file1" /> 
-			<br>
-			<input type="submit" class="btn btn-primary" value="Upload file"/> 
-			</form>
-			<br>
-			
-			<div>
-			<h2>Download a sample file</h2>
-			<p>This is used to test download functionality. Currently only a sample file is available to download. </p>
-			<a href="/downloads" download> 
-			<input type="button" class="btn btn-primary"   id="-" name="-" value="Download file"/>
-			</a>
-			</div>
-		</div> <!--- /FILE UPLOAD --->  
-
-
 		<div class="col-md-4"> <!--- LOGGER --->  
 			<h2>Logger</h2>
 			<p>Here you can see what's actaully happening and the commands exchanged with Raspberry PI.</p>
@@ -175,7 +205,7 @@ TEMPERATURE, LED's , FILE UPLOAD , LOGGER, LIVESTREAM, DISPLAY MESSAGE
 			
 		</div><!--- /row ---> 
 </div> <!-- /container -->		
-
+</div> <!-- MAIN -->
 	  
 <!---========================================
 FOOTER
