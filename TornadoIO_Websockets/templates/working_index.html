@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+  <head>
+    <title>WebSockets with Python & Tornado</title>
+    <meta charset="utf-8" />
+
+    <style type="text/css">
+      body {
+        text-align: center;
+        min-width: 500px;
+      }
+    </style>
+
+    <!--- SCRIPTS --->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script>
+      $(function(){
+		var ws;
+		var logger = function(msg){
+		var now = new Date();
+		var sec = now.getSeconds();
+		var min = now.getMinutes();
+		var hr = now.getHours();
+		$("#log").html($("#log").html() + "<br/>" + hr + ":" + min + ":" + sec + " ___ " +  msg);
+		//$("#log").animate({ scrollTop: $('#log')[0].scrollHeight}, 100);
+		$('#log').scrollTop($('#log')[0].scrollHeight);
+		}
+ 
+        var sender = function() {
+		var msg = $("#msg").val();
+		if (msg.length > 0)
+		ws.send(msg);
+		$("#msg").val(msg);
+		}
+ 
+        ws = new WebSocket("wss://7c7a6577.dataplicity.io/ws");
+
+        ws.onmessage = function(evt) {
+		if(evt.data[0] === '{'){
+			logger(evt.data.slice(1));
+			}
+		//$("#canvas_image").attr('src',  'data:image/jpg;base64,'+evt.data);
+		var canvas = document.getElementById('canvas_image');
+		var context = canvas.getContext('2d');
+		var imageObj = new Image();
+		imageObj.onload = function () {
+			context.drawImage(imageObj, 0, 0, 640, 480);
+			};
+		imageObj.src = 'data:image/jpg;base64,'+evt.data;
+		};
+
+        ws.onclose = function(evt) { 
+		$("#log").text("Connection was closed..."); 
+		$("#thebutton #msg").prop('disabled', true);
+		};
+
+        ws.onopen = function(evt) {
+		$("#log").text("Opening socket..."); 
+		};
+ 
+        $("#msg").keypress(function(event) {
+		if (event.which == 13) {
+			sender();
+			}
+		});
+ 
+        $("#thebutton").click(function(){
+		sender();
+		});
+
+        $("#green_on").click(function(){
+		ws.send("on_g");
+		});
+
+        $("#green_off").click(function(){
+		ws.send("off_g");
+		});
+
+        $("#red_on").click(function(){
+		ws.send("on_r");
+		});
+
+        $("#red_off").click(function(){
+		ws.send("off_r");
+		});
+
+       $("#video_on").click(function(){
+		ws.send("on_vid");
+		});
+
+      });
+    </script>
+    <!--- End of SCRIPTS --->
+
+  </head>
+ 
+  <body>
+    <h1>WebSockets with Python & Tornado</h1>
+    <div id="log" style="overflow:scroll;width:500px; height:200px;background-color:#ffeeaa; margin:auto; text-align:left">Messages go here</div>
+ 
+    <div style="margin:10px">
+      <input type="text" id="msg" style="background:#fff;width:200px"/>
+      <input type="button" id="thebutton" value="Send" /> 
+	<p> <h1>Green LED : </h1>
+	<input type="button" id="green_on" name="voter" value="ON" />
+	<input type="button" id="green_off" name="voter "value="OFF" />
+ 	<p> <h1>Red LED : </h1>
+	<input type="button" id="red_on" name="voter" value="ON" />
+	<input type="button" id="red_off" name="voter "value="OFF" />
+    </div>
+<p> <h1>Camera: </h1>
+ <p>
+<input type="button" id="video_on" name="voter" value="NotWorking" />
+<p>
+	<!--- <img id="image" src="/home/pi/Desktop/TornadoIO_Websockets/templates/ms.jpg" width="300" height="300"/><p> --->
+
+	<canvas id="canvas_image" src="" width="640" height="480"></canvas>	
+<p> <h1>File Upload: </h1>
+ <p>	
+<form enctype="multipart/form-data" action="" method="POST">
+<input type="file" name="file1" />
+<input type="submit" value="submit"/>
+</form>
+
+  </body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Remote control of Raspberry PI</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ static_url("jumbotron/bootstrap.css") }}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{ static_url("jumbotron/ie10-viewport-bug-workaround.css") }}" rel="stylesheet">
+
+    <!-- Styles for this template -->
+    <link href="{{ static_url("jumbotron/jumbotron.css") }}" rel="stylesheet">
+	
+    <!-- Custom Styles for this template -->
+    <link href="{{ static_url("radoslaw_therm.css") }}" rel="stylesheet">	
+	
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{{ static_url("jumbotron/ie-emulation-modes-warning.js") }}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+<!---========================================
+NAVIGATION BAR
+===========================================--->	  
+	  
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">WebSockets with Python & Tornado</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input placeholder="Email" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+              <input placeholder="Password" class="form-control" type="password">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+        </div>
+      </div> 
+    </nav>
+
+<!---========================================
+MAIN MESSAGE
+===========================================--->
+	  
+<div class="jumbotron">
+  <div class="container">
+	<h1>Raspberry Pi, WebIO!</h1>
+	<p>This page allows to remotely control Raspberry Pi at Dataplicity office.</p>
+	 <p><a class="btn btn-primary btn-lg" href="https://dataplicity.com" role="button">Learn more »</a></p> 
+  </div>
+</div>
+		
+	  	  
+
+<!---========================================
+TEMPERATURE, LED's , FILE UPLOAD , LOGGER, LIVESTREAM, DISPLAY MESSAGE
+===========================================--->
+	  
+<div class="container"> <!--- container ---> 
+	<div class="row"> <!--- row --->	
+		<h2>Processors Temperature</h2>	  
+		<div id="div-with-bg">
+			<div class="container">
+				<div>
+					<span class="thermometer" id="thermometer">200&deg;C</span>
+				</div>
+			</div>	
+		</div>
+	</div> <!--- /row ---> 	
+	
+	<hr>
+	
+	<div class="row"> <!--- row ---> 
+		<div class="col-md-4"> <!--- PLACEHOLDER --->
+		  <h2>Placeholder</h2>	
+			<img src="{{ static_url("cool_cat.jpg") }} alt="Test Image" width="350" height="320"/>
+		</div> <!--- /PLACEHOLDER  --->
+
+
+		<div class="col-md-4"> <!--- FILE UPLOAD --->  
+			<h2>Upload a file</h2>
+			<p>Here you can upload a file that will be saved on the raspberry PI. </p>
+			<form enctype="multipart/form-data" action="" method="POST">
+			Select a file to upload:
+			<input type="file" name="file1" /> 
+			<br>
+			<input type="submit" class="btn btn-primary" value="Upload file"/> 
+			</form>
+			<br>
+			
+			<div>
+			<h2>Download a sample file</h2>
+			<p>This is used to test download functionality. Currently only a sample file is available to download. </p>
+			<a href="/downloads" download> 
+			<input type="button" class="btn btn-primary"   id="-" name="-" value="Download file"/>
+			</a>
+			</div>
+		</div> <!--- /FILE UPLOAD --->  
+
+
+		<div class="col-md-4"> <!--- LOGGER --->  
+			<h2>Logger</h2>
+			<p>Here you can see what's actaully happening and the commands exchanged with Raspberry PI.</p>
+				<div id="log" style="overflow:scroll;width:375px; height:200px;background-color:#ffeeaa; margin:auto; text-align:left">Messages go here</div> 
+			<br>
+			<input type="text" id="msg" style="background:#fff;width:200px"/>
+			<input type="button" id="thebutton" value="Send" />
+		</div> <!--- /LOGGER --->
+
+		</div> <!--- /row ---> 
+
+	<hr>
+
+		<div class="row"> <!--- row ---> 
+			<div class="col-md-8"> <!--- LIVE STREAM --->
+				<h2>Live stream</h2>
+				<p>Here you can see the live stream of what's happening in the Dataplicity office.</p>
+				<canvas id="canvas_image" src="" width="640" height="480"></canvas>		
+			</div> <!--- /LIVE STREAM --->
+			
+			
+			<div class="col-md-4"> <!--- DISPLAY A MESSAGE --->
+				<h2>Display a message</h2>
+				<p>Send a message that will be displayed on LED display in the office. Currently the maximum mesage length is 13 characters.</p>
+				<input type="text" id="sbrd_message" style="background:#fff;width:200px"/>
+				<input type="button" id="sbrd_button" value="Send" />
+			
+			<br>
+			<br>
+			<br>
+			<br>
+				
+			<div> <!--- LEDs --->
+				<h2>Play with LED's</h2>
+				<p>Here you can turn on/off LED's connected to the Raspberry PI. </p>
+				Green:	
+				<p>
+				<input type="button" class="btn btn-lgn btn-success"   id="green_on" name="voter" value="ON"/>
+				<input type="button" class="btn btn-default"   id="green_off" name="voter" value="OFF"/>
+				</p>
+				Red:	
+				<p>
+				<input type="button" class="btn btn-lgn btn-danger"   id="red_on" name="voter" value="ON"/>
+				<input type="button" class="btn btn-default"   id="red_off" name="voter" value="OFF"/>
+				</p>
+			</div> <!--- /LEDs --->
+				
+			</div> <!--- /DISPLAY A MESSAGE --->
+			
+		</div><!--- /row ---> 
+</div> <!-- /container -->		
+
+	  
+<!---========================================
+FOOTER
+===========================================--->
+	  
+	<hr>
+	
+	<footer>
+		<p>© 2016 Radoslaw Kieltyka, Dataplicity.</p>
+	</footer>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ static_url("jumbotron/jquery.js") }}"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{{ static_url("jumbotron/bootstrap.js") }}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ static_url("jumbotron/ie10-viewport-bug-workaround.js") }}"></script>
+		
+   <!-- Custom Scripts
+    ================================================== -->		
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="{{ static_url("radoslaw.js") }}"></script>
+  
+		
+
+</body></html>
