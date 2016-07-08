@@ -22,7 +22,7 @@
 	
     <!-- Custom Styles for this template -->
     <link href="{{ static_url("radoslaw_therm.css") }}" rel="stylesheet">	
-	
+    <link href="{{ static_url("over_jumbo.css") }}" rel="stylesheet">		
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -69,7 +69,6 @@ NAVIGATION BAR
 <!---========================================
 MAIN MESSAGE
 ===========================================--->
-	  
 <div class="jumbotron">
   <div class="container">
 	<h1>Raspberry Pi, WebIO!</h1>
@@ -77,20 +76,19 @@ MAIN MESSAGE
 	 <p><a class="btn btn-primary btn-lg" href="https://dataplicity.com" role="button">Learn more »</a></p> 
   </div>
 </div>
-		
-	  	  
 
 <!---========================================
 TEMPERATURE, LED's , FILE UPLOAD , LOGGER, LIVESTREAM, DISPLAY MESSAGE
 ===========================================--->
 	  
 <div class="container"> <!--- container ---> 
+	<img src="{{ static_url("cool_cat.jpg") }} alt="Test Image" width="300" height="260" style="float:right; border:5px solid white; margin-top:-225px; margin-right:50px" /> <!--- This image has to be here because it'sfloat and margin settings are relative to the container --->
 	<div class="row"> <!--- row --->	
 		<h2>Processors Temperature</h2>	  
 		<div id="div-with-bg">
 			<div class="container">
 				<div>
-					<span class="thermometer" id="thermometer">200&deg;C</span>
+					<span class="thermometer" id="thermometer">9001&deg;C</span>
 				</div>
 			</div>	
 		</div>
@@ -101,7 +99,7 @@ TEMPERATURE, LED's , FILE UPLOAD , LOGGER, LIVESTREAM, DISPLAY MESSAGE
 	<div class="row"> <!--- row ---> 
 		<div class="col-md-4"> <!--- PLACEHOLDER --->
 		  <h2>Placeholder</h2>	
-			<img src="{{ static_url("cool_cat.jpg") }} alt="Test Image" width="350" height="320"/>
+		
 		</div> <!--- /PLACEHOLDER  --->
 
 
@@ -186,7 +184,7 @@ FOOTER
 	<hr>
 	
 	<footer>
-		<p>© 2016 Radoslaw Kieltyka, Dataplicity.</p>
+		<p> 2016 Radoslaw Kieltyka, Dataplicity.</p>
 	</footer>
 
 

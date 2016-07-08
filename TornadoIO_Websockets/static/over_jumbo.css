@@ -1,0 +1,10 @@
+/*
+* This file is used to override default jumbotron settings.
+*
+* It should be loaded AFTER default jumbotron libraries.
+*
+*/
+
+.jumbotron{
+margin-bottom: 0px;
+}
