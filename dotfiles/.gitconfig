@@ -1,0 +1,7 @@
+[user]
+	name = Rkieltyka
+	email = Rkieltyka@dataplicity.com
+[core]
+	editor = vim
+[color]
+	ui = true
