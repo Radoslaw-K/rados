@@ -1,5 +1,0 @@
-List of dot files to be added:
-.gitconfig
-.gitcompletion
-.bash_profile
-.vimrc
