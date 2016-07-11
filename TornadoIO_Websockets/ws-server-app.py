@@ -1,4 +1,8 @@
 #! /usr/bin/python
+
+PLATFORM = 0 # "rpi"
+
+
 import sys
 import os.path
 import tornado.httpserver
@@ -6,10 +10,25 @@ import tornado.websocket
 import tornado.ioloop
 import tornado.web
 import subprocess
-#import RPi.GPIO as GPIO
-#from picamera import PiCamera
 import time
-#from signboard_Rversion import signboard
+
+if PLATFORM == "rpi":
+    import RPi.GPIO as GPIO
+    from picamera import PiCamera
+
+    from signboard_Rversion import signboard
+
+    #Global Camera Object
+    camera = PiCamera()
+    camera.resolution = (300, 300)
+    camera.framerate = 30
+
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(16, GPIO.OUT)
+    GPIO.setup(18, GPIO.OUT)
+
+    signboard = signboard()
+
 
 #Public list of clients
 clients = []
@@ -20,16 +39,7 @@ settings = dict(
 	static_path = os.path.join(os.path.dirname(__file__), "static")
 )
 
-#Global Camera Object
-#camera = PiCamera()
-#camera.resolution = (300, 300)
-#camera.framerate = 30
 
-#GPIO.setmode(GPIO.BOARD)
-#GPIO.setup(16, GPIO.OUT)
-#GPIO.setup(18, GPIO.OUT)
-
-#signboard = signboard()
 
 class DownloadHandler(tornado.web.RequestHandler):
   def get(self):
@@ -80,13 +90,13 @@ class WSHandler(tornado.websocket.WebSocketHandler):
       GPIO.output(18, True)
     if message == "off_r":
       GPIO.output(18, False)
-#    if message[0:5] == "sbrd_":
-#      signboard.display_message(message[5:])
-    
+    if message[0:5] == "sbrd_":
+      signboard.display_message(message[5:])
+
   def on_close(self):
     print '[WS] Connection was closed.'
     clients.remove(self)
-        
+
 application = tornado.web.Application([
   (r'/', MainHandler),
   (r'/ws', WSHandler),
@@ -122,28 +132,40 @@ class ContentHandler():
  
 if __name__ == "__main__":
   try:
-    test = ContentHandler()
-    
+
     http_server = tornado.httpserver.HTTPServer(application)
-    http_server.listen(8000)
+
+    if PLATFORM == "rpi":
+        http_server.listen(80)
+    else:
+        http_server.listen(8000)
 
     main_loop = tornado.ioloop.IOLoop.instance()
-    temp_loop = tornado.ioloop.PeriodicCallback(test.PI_temp,
+
+
+    if PLATFORM == "rpi":
+        test = ContentHandler()
+        temp_loop = tornado.ioloop.PeriodicCallback(test.PI_temp,
                                                     2000,
                                                     io_loop = main_loop)
-#    provider_loop = tornado.ioloop.PeriodicCallback(test.img,
-#                                                    250,
-#                                                    io_loop = main_loop)
-#    provider_loop.start()
+        provider_loop = tornado.ioloop.PeriodicCallback(test.img,
+                                                    250,
+                                                    io_loop = main_loop)
+
+        provider_loop.start()
+        temp_loop.start()
+
 
     print "Tornado started"
-    temp_loop.start()
     main_loop.start()
+
   except:
     print "-----Exception triggered-----"
-#    GPIO.cleanup()
-#    camera.close()
-#    signboard.close_serial()
+
+    if PLATFORM == "rpi":
+        GPIO.cleanup()
+        camera.close()
+        signboard.close_serial()
 
 
 
