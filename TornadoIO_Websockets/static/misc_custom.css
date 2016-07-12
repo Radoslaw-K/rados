@@ -5,6 +5,8 @@
 *
 */
 
+
+/* OVERWRITE DEFAULT JUMBOTRON SETTINGS */
 .jumbotron{
 margin-bottom:10px;
 }
@@ -14,7 +16,9 @@ margin-right:15px;
 }
 
 
+/* BACKGROUND IMAGE WHEN LIVE STREAM IS OFF */
 .canv_bg{
-background-image: url("s.jpg");
-background-size: cover;
+    background-image: url("s.jpg");
+    background-size: cover;
+    background-position: center;
 }

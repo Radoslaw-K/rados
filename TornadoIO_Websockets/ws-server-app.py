@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-PLATFORM = 0 # "rpi"
+PLATFORM =  "rpi"
 
 
 import sys
