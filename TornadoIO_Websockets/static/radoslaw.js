@@ -10,6 +10,24 @@ $(function(){
 		//$("#log").animate({ scrollTop: $('#log')[0].scrollHeight}, 100);
 		$('#log').scrollTop($('#log')[0].scrollHeight);
 		}
+
+/*
+        $.ajax({
+        type: "GET",
+        url: "/json",
+
+        success: function(json_response){
+            var objresponse = JSON.parse(json_response);
+            $("#test").text(objresponse["users"]);
+
+
+            }
+
+
+        });
+
+*/
+
  
         var sender = function() {
 		var msg = $("#msg").val();
@@ -33,8 +51,8 @@ $(function(){
         ws.onmessage = function(evt) {
 		if(evt.data[0] === '{'){
 			if(evt.data[1] === 't' ){
-			temp_updater(evt.data.slice(6,10) );
-			}
+    			temp_updater(evt.data.slice(6,10) );
+    			}
 				
 			logger(evt.data.slice(1));
 			}
