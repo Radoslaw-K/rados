@@ -1,0 +1,16 @@
+#This command is used to make raspberry pi camera show up in /dev folder
+#as video0
+
+sudo modprobe bcm2835-v4l2
+
+#To check that is has worked correctly run:
+
+ls -al /dev/vid*
+
+#This command is used to start ffmpeg stream
+
+ffmpeg -s 320x240 -f video4linux2 -i /dev/video0 -f mpeg1video -b 800 -r 30 http://localhost:8082/rpi/320/240/
+
+#start a node js server
+
+node stream-server.js rpi
