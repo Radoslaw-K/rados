@@ -5,10 +5,29 @@ $(function(){
 		var sec = now.getSeconds();
 		var min = now.getMinutes();
 		var hr = now.getHours();
+
 		$("#log").html($("#log").html() + "<br/>" + hr + ":" + min + ":" + sec + " ___ " +  msg);
 		//$("#log").animate({ scrollTop: $('#log')[0].scrollHeight}, 100);
 		$('#log').scrollTop($('#log')[0].scrollHeight);
 		}
+
+/*
+        $.ajax({
+        type: "GET",
+        url: "/json",
+
+        success: function(json_response){
+            var objresponse = JSON.parse(json_response);
+            $("#test").text(objresponse["users"]);
+
+
+            }
+
+
+        });
+
+*/
+
  
         var sender = function() {
 		var msg = $("#msg").val();
@@ -32,23 +51,23 @@ $(function(){
         ws.onmessage = function(evt) {
 		if(evt.data[0] === '{'){
 			if(evt.data[1] === 't' ){
-			temp_updater(evt.data.slice(6,10) );
-			}
+    			temp_updater(evt.data.slice(6,10) );
+    			}
 				
 			logger(evt.data.slice(1));
 			}
-		//$("#canvas_image").attr('src',  'data:image/jpg;base64,'+evt.data);
+		
 		var canvas = document.getElementById('canvas_image');
 		var context = canvas.getContext('2d');
 		var imageObj = new Image();
 		imageObj.onload = function () {
 			context.drawImage(imageObj, 0, 0, 640, 480);
 			};
-		imageObj.src = 'data:image/jpg;base64,'+evt.data;
+		imageObj.src = 'data:image/jpg;base64,'+evt.data; 
 		};
 
         ws.onclose = function(evt) { 
-		$("#log").text("Connection was closed..."); 
+		$("#log").text("...Connection was closed..."); 
 		$("#thebutton #msg").prop('disabled', true);
 		};
 

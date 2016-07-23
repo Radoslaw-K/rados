@@ -1,4 +1,8 @@
 #! /usr/bin/python
+
+PLATFORM =  "rpi"
+
+
 import sys
 import os.path
 import tornado.httpserver
@@ -6,13 +10,33 @@ import tornado.websocket
 import tornado.ioloop
 import tornado.web
 import subprocess
-#import RPi.GPIO as GPIO
-#from picamera import PiCamera
 import time
-#from signboard_Rversion import signboard
+import json
+
+if PLATFORM == "rpi":
+    import RPi.GPIO as GPIO
+    from picamera import PiCamera
+
+    from signboard_Rversion import signboard
+
+    #Global Camera Object
+    camera = PiCamera()
+    camera.resolution = (300, 300)
+    camera.framerate = 30
+
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(16, GPIO.OUT)
+    GPIO.setup(18, GPIO.OUT)
+
+    signboard = signboard()
+
 
 #Public list of clients
 clients = []
+#http_users = {"users" : 0 } 
+#http_clients = []
+users = 0
+
 
 #Tornado Folder Paths
 settings = dict(
@@ -20,16 +44,12 @@ settings = dict(
 	static_path = os.path.join(os.path.dirname(__file__), "static")
 )
 
-#Global Camera Object
-#camera = PiCamera()
-#camera.resolution = (300, 300)
-#camera.framerate = 30
+# class JSON_Handler(tornado.web.RequestHandler):
+   # def get(self):
+       # for c in http_clients:
+       #     c.write(json.dumps(http_users))
+       # print "JSON Handler activated"
 
-#GPIO.setmode(GPIO.BOARD)
-#GPIO.setup(16, GPIO.OUT)
-#GPIO.setup(18, GPIO.OUT)
-
-#signboard = signboard()
 
 class DownloadHandler(tornado.web.RequestHandler):
   def get(self):
@@ -49,8 +69,11 @@ class DownloadHandler(tornado.web.RequestHandler):
 	
 class MainHandler(tornado.web.RequestHandler):
   def get(self):
-    print "[HTTP](MainHandler) User Connected."
-    self.render("index.html")
+   # http_clients.append(self)
+     print "[HTTP](MainHandler) User Connected."
+   # http_users["users"] = http_users["users"] + 1
+     print "total users =", users
+     self.render("index.html")
 
   def post(self):
 	print "[HTTP](MainHandler) POST Request"
@@ -68,7 +91,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     print '[WS] Connection was opened.'
     self.write_message("{Welcome to my websocket!")
     clients.append(self)
-
+    global users
+    users += 1
+ 
   def on_message(self, message):
     print '[WS] Incoming message:', message
     self.write_message("{You said: " + message)
@@ -80,17 +105,20 @@ class WSHandler(tornado.websocket.WebSocketHandler):
       GPIO.output(18, True)
     if message == "off_r":
       GPIO.output(18, False)
-#    if message[0:5] == "sbrd_":
-#      signboard.display_message(message[5:])
-    
+    if message[0:5] == "sbrd_":
+      signboard.display_message(message[5:])
+
   def on_close(self):
     print '[WS] Connection was closed.'
     clients.remove(self)
-        
+    global users
+    users -= 1
+ 
 application = tornado.web.Application([
   (r'/', MainHandler),
   (r'/ws', WSHandler),
   (r'/downloads', DownloadHandler),
+ # (r'/json', JSON_Handler),
 
 ], **settings)
 
@@ -118,32 +146,48 @@ class ContentHandler():
 				c.write_message(data.encode("base64"))      
 				f.close()
 
+  def users_connected(self):
+    for c in clients:
+        global users
+        c.write_message("{"+ "users " + str(users)) 
 
  
 if __name__ == "__main__":
   try:
-    test = ContentHandler()
-    
+
     http_server = tornado.httpserver.HTTPServer(application)
-    http_server.listen(8000)
+
+    if PLATFORM == "rpi":
+        http_server.listen(80)
+    else:
+        http_server.listen(8000)
 
     main_loop = tornado.ioloop.IOLoop.instance()
-    temp_loop = tornado.ioloop.PeriodicCallback(test.PI_temp,
+
+
+    if PLATFORM == "rpi":
+        test = ContentHandler()
+        temp_loop = tornado.ioloop.PeriodicCallback(test.PI_temp,
                                                     2000,
                                                     io_loop = main_loop)
-#    provider_loop = tornado.ioloop.PeriodicCallback(test.img,
-#                                                    250,
-#                                                    io_loop = main_loop)
-#    provider_loop.start()
+        provider_loop = tornado.ioloop.PeriodicCallback(test.img,
+                                                    250,
+                                                    io_loop = main_loop)
+        user_count_loop = tornado.ioloop.PeriodicCallback(test.users_connected, 1000, io_loop = main_loop)
+        provider_loop.start()
+        temp_loop.start()
+        user_count_loop.start()
 
     print "Tornado started"
-    temp_loop.start()
     main_loop.start()
+
   except:
     print "-----Exception triggered-----"
-#    GPIO.cleanup()
-#    camera.close()
-#    signboard.close_serial()
+
+    if PLATFORM == "rpi":
+        GPIO.cleanup()
+        camera.close()
+        signboard.close_serial()
 
 
 
