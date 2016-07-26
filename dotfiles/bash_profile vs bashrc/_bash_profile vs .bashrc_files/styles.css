@@ -1,0 +1,128 @@
+body {
+  font-family: Georgia, serif;
+  font-size: 12pt;
+  line-height: 1.5;
+  margin: 0 auto;
+  margin-bottom: 1.5em;
+  width:33em;
+}
+
+a:link, a:visited {
+  color: #0054a6;
+  text-decoration: none;
+  border-bottom: 1px dotted #0054a6;
+}
+
+a:hover {
+  border-bottom: 1px solid #0054a6;
+}
+
+
+/*#footer {
+  font-size: .75em;
+  line-height: 2;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}*/
+
+h1 {
+  font-size: 2em;
+  line-height: 1.5;
+  margin-top: .75em;
+  margin-bottom: 0em;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 1.33em;
+  line-height:  1.125;
+  margin-top: 1.125em;
+  margin-bottom: 1.125em;
+}
+
+.byline {
+  font-weight:normal; 
+  color: #747474;
+}
+
+.byline a {
+  color:#7f7f7f;
+  font-style: italic;
+  border-bottom: 1px dotted #7f7f7f;
+}
+
+.byline a:hover {
+  border-bottom: 1px solid #7f7f7f;
+}
+
+h3, blockquote {
+  font-size: 1em;
+  line-height: 1.5;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+p {
+  margin-top: 1.5em;
+  margin-bottom: 0;
+}
+
+p + p {
+  margin-top: 0;
+  text-indent: 1.5em;
+}
+
+.posted {
+  margin-bottom: 3em;
+}
+
+hr {
+  border: 0;
+  background-color: #747474;
+  height: 1px;
+  line-height: 1.5;
+  margin-bottom: 1.5em;
+  margin-top: 1.5em;
+}
+
+code {
+  font-weight:normal;
+} 
+.dropcap {
+  color:red;
+  font-size:3em;
+  float: left;
+  margin-top:-1px;
+  line-height:1;
+}
+
+.dropcap-word {
+  margin-left: .25em;
+  text-transform: uppercase;
+}
+
+blockquote {
+  font-style: italic;
+}
+
+pre.code {
+  font-style: normal;
+  font-family: courier, monospace;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: circle;
+}
+
+.posted {
+  margin-top: 1.5em;
+}
+
+.author {
+  font-style: italic;
+}

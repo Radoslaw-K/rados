@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./_bash_profile vs .bashrc_files/styles.css" rel="stylesheet" type="text/css">
+<meta name="description" content="What is the difference between .bash_profile and .bashrc?  An explaination of why each exists, and when to use one or the other.">
+
+<title>.bash_profile vs .bashrc</title>
+
+
+<meta name="viewport" content="initial-scale=1">
+
+    <style>
+      body { 
+        width:728px; 
+        font-size:16px;
+      }
+
+      @media only screen and (max-width:727px) {
+        body {
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        #wrapper {
+          margin: 0 16px;
+        }
+
+        h1 {
+          font-size: 1.33em;
+          line-height:  1.125;
+          margin-top: 1.125em;
+          margin-bottom: 1.125em;
+          font-weight: bold;
+        }
+      }
+    </style>
+  </head>
+  <body>
+<script src="./_bash_profile vs .bashrc_files/ca-pub-2952384934569318.js"></script><script type="text/javascript" async="" src="./_bash_profile vs .bashrc_files/ga.js"></script><script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-5443756-5']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="wrapper">
+<h1>.bash_profile vs .bashrc</h1>
+<h3 class="byline">by <a href="http://www.joshstaiger.org/">Josh Staiger</a></h3>
+<hr>
+
+<script async="" src="./_bash_profile vs .bashrc_files/adsbygoogle.js"></script>
+<!-- joshstaiger.org responsive -->
+<ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-2952384934569318" data-ad-slot="1170038301" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" src="./_bash_profile vs .bashrc_files/saved_resource.html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<div id="main">
+<p><span class="dropcap">W</span><span class="dropcap-word">hen</span> working with Linux, Unix, and Mac OS X, I always forget which bash config file to edit when I want to set my <code>PATH</code> and other environmental variables for my shell.  Should you edit <code>.bash_profile</code> or <code>.bashrc</code> in your home directory?</p>
+<p>You can put configurations in either file, and you can create either if it doesn’t exist. But why two different files?  What is the difference?</p>
+<p>According to the <a href="http://linux.die.net/man/1/bash">bash man page</a>, <code>.bash_profile</code> is executed for login shells, while <code>.bashrc</code> is executed for interactive non-login shells.</p>  
+<h3>What is a login or non-login shell?</h3>
+<p>When you <i>login</i> (type username and password) via console, either sitting at the machine, or remotely via ssh: <code>.bash_profile</code> is executed to configure your shell before the initial command prompt.
+</p>
+<p>But, if you’ve already logged into your machine and open a new terminal window (xterm) inside Gnome or KDE, then <code>.bashrc</code> is executed before the window command prompt. <code>.bashrc</code> is also run when you start a new bash instance by typing <code>/bin/bash</code> in a terminal.</p>
+<h3>Why two different files?</h3>
+<p>Say, you’d like to print some lengthy diagnostic information about your machine each time you login (load average, memory usage, current users, etc).  You <i>only</i> want to see it on login, so you <i>only</i> want to place this in your <code>.bash_profile</code>.  If you put it in your <code>.bashrc</code>, you’d see it every time you open a new terminal window.</p>
+<h3>Mac OS X — an exception</h3>
+<p>An exception to the terminal window guidelines is Mac OS X’s Terminal.app, which runs a login shell by default for each new terminal window, calling <code>.bash_profile</code> instead of <code>.bashrc</code>.  Other GUI terminal emulators may do the same, but most tend not to.</p>
+<h3>Recommendation</h3>
+<p>Most of the time you don’t want to maintain two separate config files for login and non-login shells — when you set a <code>PATH</code>, you want it to apply to both.  You can fix this by sourcing <code>.bashrc</code> from your <code>.bash_profile</code> file, then putting <code>PATH</code> and common settings in <code>.bashrc</code>.</p>
+<br>To do this, add the following lines to <code>.bash_profile</code>:
+<blockquote>
+<pre class="code">if [ -f ~/.bashrc ]; then
+   source ~/.bashrc
+fi
+</pre>
+</blockquote>
+<p>Now when you login to your machine from a console <code>.bashrc</code> will be called.</p>
+<br><div><a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html#" onclick="document.getElementById(&#39;comments&#39;).style.display=&#39;block&#39;; return false;">15 Comments</a></div>
+<div id="comments" style="display:none">
+<hr><h3>Comments</h3>
+<div id="comment706" class="comment">
+<p>Thanks for enlightening, I was mystified on this front .. </p>
+</div> 
+<div class="posted">— <span class="author">Mahendra Shelke</span>, October 12, 2006</div><div id="comment718" class="comment"><p>Thank you  - that really helped me</p></div> 
+<div class="posted">— <span class="author">Gene</span>,  November  1, 2006</div><div id="comment829" class="comment">
+<p>This may give undesirable results should you run a remote (non-interactive) shell-calling program (e.g.: scp).  It’s probably wisest to use these .rc files as they were designed to be used.  Alas, I’m not exactly sure how they were designed to be used.  :-P    I use tcsh, so I copied all of my old .tcshrc file into .tcsh_profile and combined the calls to .cshrc and .alias into .tcsh_profile while I was at it.  Now when I login I don’t get any of my settings, but at least scp works again.  Ah "progress"!  </p>
+</div> <div class="posted">
+— <span class="author">Anonymous</span>,  February  4, 2007</div><div id="comment831" class="comment">
+<p>I’ve been calling .bashrc from .bash_profile on my remote machine for a while and have never had a problem with scp, but I suppose it depends on the content of those files.</p>
+</div> <div class="posted">
+— <span class="author">Josh Staiger</span>, February  4, 2007</div><div id="comment852" class="comment">
+<p>Thanks a lot! This issue has been gnawing me for months!</p>
+</div> <div class="posted">
+— <span class="author">Ankit Agrawal</span>,  March  1, 2007</div><div id="comment901" class="comment">
+<p>Wouldn’t this cause problem if you run one script from the other in both of them?  For example, if you have those 3 lines to include .bashrc in .bash_profile, then it starts executing .bashrc and then reaches those 3 lines in .bashrc and starts to execute .bash_profile.  Doesn’t this result in some sort of recursive stack overflow?</p>
+</div> <div class="posted">
+— <span class="author">Tom</span>,  April 16, 2007 </div><div id="comment902" class="comment">
+<p>I absolutely despise coloring ls output. ls -F is the obviously correct solution.</p>
+</div> <div class="posted">
+— <span class="author">ajv</span>,  April 16, 2007 </div><div id="comment903" class="comment">
+<p>It’s OK to call .bashrc from .bash_profile as long as you’re careful what commands you put in .bashrc.  However you should never call .bash_profile from .bashrc.  If you really want to execute .bash_profile, just start bash with a ’-l’ (or a ’--login’ if you prefer) option.</p>
+</div> <div class="posted">
+— <span class="author">DevilDogs</span>,  April 16, 2007 </div><div id="comment904" class="comment">
+<p><i>I absolutely despise coloring ls output. ls -F is the obviously correct solution.</i></p>
+<p>Well, that’s a personal preference. But ls -F is horrible IMO: those tacked on characters make files look like they have wonky names, to the extent that novice users even try to type them in as part of the name (which has caused  me tech support hassle in the past).  Coloring produces no such confusion- you don’t get people confused because they can’t type a green filename or purple filename, wanting to because "that’s how it looks in the listing"...</p>
+</div> <div class="posted"> — <span class="author">Spissy Spispopd</span>, April 16, 2007 </div><div id="comment906" class="comment">
+<p>Certain terminal emulators can be set to execute login shells rather than regular shells. And this has security benefits, IIRC, with regards to things that get logged to the system log (mostly to do with su/sudo, I’d have to look it up). </p>
+<p>.bashrc is also run whenever you run a script written in bash. So if you want to have /usr/games/fortune spit you out a funny bit of wisdom,  you should make it run in .bash_profile, NOT .bashrc, unless you want to see a fortune every time an sh process gets directly or indirectly executed by a script (I did this once, and man, compiling packages from source got a little more interesting at least).</p>
+</div> <div class="posted">
+— <span class="author">David Warde-Farley</span>,  April 17, 2007 </div><div id="comment907" class="comment">
+<p>You should use ~/.profile for setting environment variables or executing login scripts. That way if you decide to switch to another shell (or if bash is for some reason unavailable - due to a disk failure for example) you won’t need to move those scripts out of ~/.bash_profile - they’ll be appropriately executed from ~/.profile.</p>
+<p>Any bash-specific settings should be set in ~/.bashrc, so that they will be set even if you execute bash from another shell or xterm (ie if bash is not your login shell for that session).</p>
+<p>All of this is clearly stated in the bash man page (ie ’man bash’ at the command line), as well as the <a href="http://www.gnu.org/software/bash/manual/bashref.html#SEC65">user guide</a>.</p>
+</div> <div class="posted">
+— <span class="author">Andrew</span>, April 17, 2007 </div><div id="comment908" class="comment">
+<p><i>It’s OK to call .bashrc from .bash_profile as long as you’re careful what commands you put in .bashrc.</i></p>
+<p>It is not just OK - it is standard/typical behaviour as stated by the user guide.</p>
+<p><i>However you should never call .bash_profile from .bashrc.</i></p>
+<p>Especially if you’re already calling .bashrc from .bash_profile. ;-)</p>
+</div> <div class="posted">
+— <span class="author">Andrew</span>, April 17, 2007 </div><div id="comment909" class="comment">
+<p>This finally explained why I never saw my ~/.bashrc settings when I would login interactively.</p>
+<p>I tested the if/then contruct in my ~/.bash_profile and, sure enough, I get my fancy PS1 settings and all my aliases.</p>
+</div> <div class="posted">
+— <span class="author">Bill</span>,  April 17, 2007 </div><div id="comment912" class="comment">
+<p>Why not just hardlink .bashrc to .bash_profile and have one file to edit?</p>
+</div> <div class="posted">
+— <span class="author">Robert D.</span>, April 17, 2007 </div><div id="comment913" class="comment">
+<p>I typically check .bash_profile for anything useful.  If there’s anything in there I want to keep, I move the contents to .bashrc.  I then symlink .bash_profile to .bashrc to keep things simple.</p>
+<p>I also used to use the `source .bashrc` method you mentioned, but in the end I found it simpler to have  only one file to maintain.</p>
+</div> <div class="posted">
+— <span class="author">hollywoodb</span>,  April 17, 2007 </div></div></div>
+<br>
+
+  <script async="" src="./_bash_profile vs .bashrc_files/adsbygoogle.js"></script>
+  <!-- joshstaiger.org responsive -->
+  <ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-2952384934569318" data-ad-slot="1170038301" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" src="./_bash_profile vs .bashrc_files/saved_resource(1).html"></iframe></ins></ins></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+
+<div id="footer">
+<hr>
+Say hello: 
+<a href="mailto:hi@joshstaiger.org">hi@joshstaiger.org</a>.
+<br><br>
+You should follow me on twitter 
+<a href="http://www.twitter.com/joshstaiger" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;Clicks&#39;, &#39;twitter&#39;]);">here</a>.
+</div></div>
+
+</body></html>
