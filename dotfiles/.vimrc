@@ -1,5 +1,11 @@
 syntax on
 
+" Show line numbers
+set number
+
+" Highlight search results
+set hlsearch
+
 " Indentation with four spaces
 set tabstop=4
 set shiftwidth=4
