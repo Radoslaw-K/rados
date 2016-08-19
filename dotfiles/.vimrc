@@ -15,3 +15,11 @@ set expandtab
 " Complain about trailing whitespace
 set list
 set list listchars=tab:→\ ,trail:·
+
+" Auto pairing
+inoremap { {}<Left>
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap " ""<Left>
+inoremap < <><Left>
+inoremap ' ''<Left>
