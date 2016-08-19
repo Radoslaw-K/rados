@@ -16,7 +16,7 @@ set expandtab
 set list
 set list listchars=tab:→\ ,trail:·
 
-" Auto pairing
+" Auto pairing (Easy way but involves copy/paste issues)
 inoremap { {}<Left>
 inoremap ( ()<Left>
 inoremap [ []<Left>
