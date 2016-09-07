@@ -1,0 +1,24 @@
+/*
+* This file is used to override default jumbotron settings.
+*
+* It should be loaded AFTER default jumbotron libraries.
+*
+*/
+
+
+/* OVERWRITE DEFAULT JUMBOTRON SETTINGS */
+.jumbotron{
+margin-bottom:10px;
+}
+
+.row{
+margin-right:15px;
+}
+
+
+/* BACKGROUND IMAGE WHEN LIVE STREAM IS OFF */
+.canv_bg{
+    background-image: url("s.jpg");
+    background-size: cover;
+    background-position: center;
+}
