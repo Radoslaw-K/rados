@@ -4,10 +4,11 @@ Terminator
 Git
 tree
 flake8
-
+httpie instead of curl for REST API work
 
 
 
 extras:
 cmatrix
 redshift
+
