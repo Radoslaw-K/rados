@@ -1,14 +1,17 @@
-List of linux apps currently in use:
-VIM
-Terminator
-Git
-tree
-flake8
-httpie instead of curl for REST API work
+General development stuff:
+    # sudo apt-get install vim git tree httpie terminator
+    VIM - Text editor on steroids
+    Git - Version control system
+    tree - Structured alternative to ls command
+    httpie - Instead of curl for REST API work
+    Terminator - Terminal emulator with split windows feature
 
+Python development related:
+    # sudo pip install flake8 coverage
+    flake8 - for PEP8 syntax compliance
+    coverage - for unit testing reports
 
-
-extras:
-cmatrix
-redshift
-
+Handy stuff in general:
+    # sudo apt-get install cmatrix redshift
+    cmatrix - Cool matrix animation
+    redshift - Screen light dimmer at night
