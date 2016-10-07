@@ -1,6 +1,6 @@
 # General development stuff:
     
-    sudo apt-get install vim git tree httpie terminator
+    sudo apt-get -y install vim git tree httpie terminator
     
     # VIM - Text editor on steroids
     # Git - Version control system
@@ -17,7 +17,7 @@
     # coverage - for unit testing reports
 
 # Handy stuff in general:
-    sudo apt-get install cmatrix redshift
+    sudo apt-get -y install cmatrix redshift
     
     # cmatrix - Cool matrix animation
     # redshift - Screen light dimmer at night
