@@ -3,6 +3,9 @@ syntax on
 " Show line numbers
 set number
 
+" Set line marker at column 79 (mostly for python PEP8)
+set colorcolumn=79
+
 " Highlight search results
 set hlsearch
 
