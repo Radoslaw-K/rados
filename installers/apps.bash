@@ -11,11 +11,12 @@
 
 # Python development related:
    
-    sudo pip install flake8 coverage ipython
+    sudo pip install flake8 coverage ipython pexpect
     
     # flake8 - for PEP8 syntax compliance
     # coverage - for unit testing reports
     # ipython - Better than default python shell that keeps command history
+    # pexpect - ipython dependency
 
 # Handy stuff in general:
     sudo apt-get -y install cmatrix redshift
