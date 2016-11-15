@@ -47,7 +47,7 @@ let g:airline_theme='gruvbox'
 " Nerdtree config
 " --------------------------------------
 " Open Nerdtree with vim
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 
 " Use CTR+N to toggle Nerdtree ON/OFF
 map <C-n> :NERDTreeToggle<CR>
