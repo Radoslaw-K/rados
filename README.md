@@ -1,4 +1,7 @@
-### Dotfiles
+![alt text](https://dotfiles.github.io/images/dotfiles-logo.png)
+
+
+### Setup
 
 Run the installer files using the following command:
 
