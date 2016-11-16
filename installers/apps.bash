@@ -1,12 +1,13 @@
 # General development stuff:
     
-    sudo apt-get -y install vim git tree httpie terminator
+    sudo apt-get -y install vim git tree httpie terminator silversearcher-ag
     
     # VIM - Text editor on steroids
     # Git - Version control system
     # tree - Structured alternative to ls command
     # httpie - Instead of curl for REST API work
     # Terminator - Terminal emulator with split windows feature
+    # silversearcher-ag - Search for a keyword in ALL files in given directory
 
 
 # Python development related:
