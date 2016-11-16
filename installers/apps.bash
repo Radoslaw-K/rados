@@ -1,6 +1,6 @@
 # General development stuff:
     
-    sudo apt-get -y install vim git tree httpie terminator silversearcher-ag
+    sudo apt-get -y install vim git tree httpie terminator silversearcher-ag sqlite3
     
     # VIM - Text editor on steroids
     # Git - Version control system
@@ -8,6 +8,7 @@
     # httpie - Instead of curl for REST API work
     # Terminator - Terminal emulator with split windows feature
     # silversearcher-ag - Search for a keyword in ALL files in given directory
+    # sqlite3 - Simple database system
 
 
 # Python development related:
