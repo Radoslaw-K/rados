@@ -1,5 +1,0 @@
-# How to debug rc.local
-
-exec 2> /home/pi/Desktop/rclocal.log
-exec 1>&2
-set -x
