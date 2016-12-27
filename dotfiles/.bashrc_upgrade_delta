@@ -7,3 +7,11 @@ if [ -e /usr/share/terminfo/x/xterm-256color ]; then
 else
     export TERM='xterm-color'
 fi
+
+# Use "cdt" command to change directory and show its tree
+cdt() {
+    cd $1 
+    pwd
+    tree -L 1
+    }
+
