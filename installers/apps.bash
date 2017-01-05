@@ -1,6 +1,6 @@
 # General development stuff:
     
-    sudo apt-get -y install vim git tree httpie terminator silversearcher-ag sqlite3
+    sudo apt-get -y install vim git tree httpie terminator silversearcher-ag sqlite3 strace screen inotify-tools
     
     # VIM - Text editor on steroids
     # Git - Version control system
@@ -9,7 +9,9 @@
     # Terminator - Terminal emulator with split windows feature
     # silversearcher-ag - Search for a keyword in ALL files in given directory
     # sqlite3 - Simple database system
-
+    # strace - Follow commands code execution step by step
+    # screen - Run process in background
+    # inotify-tools - Monitor directories for changes
 
 # Python development related:
    
