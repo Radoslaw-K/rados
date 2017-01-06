@@ -13,6 +13,10 @@
     # screen - Run process in background
     # inotify-tools - Monitor directories for changes
 
+# Tools that tend to be missing sometimes for building packages from source
+    sudo apt-get -y install bison libtool build-essentials acloclal autotools-dev automake
+
+
 # Python development related:
    
     sudo pip install flake8 coverage ipython pexpect
