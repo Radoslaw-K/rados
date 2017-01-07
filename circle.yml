@@ -1,4 +1,4 @@
 ## Customize dependencies
 test:
   post:
-    - sudo apt-get install git
+    - curl https://raw.githubusercontent.com/Radoslaw-K/rados/dotfiles/installers/ps_update.bash | sudo bash
