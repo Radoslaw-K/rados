@@ -1,4 +1,4 @@
 ## Customize dependencies
 dependencies:
   pre:
-    - npm install coffeescript # install from a different package manager
+    - sudo apt-get install git
