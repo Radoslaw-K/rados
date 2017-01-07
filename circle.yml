@@ -1,4 +1,4 @@
 ## Customize dependencies
-dependencies:
-  pre:
+test:
+  post:
     - sudo apt-get install git
