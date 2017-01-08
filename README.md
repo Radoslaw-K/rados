@@ -6,6 +6,6 @@
 
 ### Setup
 
-Run the installer files using the following command:
+Run the master installer using this command:
 
-`curl <raw_github_link_to_installer_file.bash> | sudo bash`
+`git clone -b dotfiles_new_installers https://github.com/Radoslaw-K/rados/ && rados/installers/apps.bash `
