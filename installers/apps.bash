@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 install_sqlite3()
 {
 echo "Installing sqlite3 package"
@@ -16,6 +17,14 @@ printf "$SQLITE_RC" > /home/$USER/.sqliterc
 exit 0
 }
 
+
+install_build_tools()
+{
+sudo apt-get install -y bison libtool build-essential autotools-dev automake
+exit 0
+}
+
+
 ##################################    MAIN   ###############################################
 
 if [ $USER == "root" ]; then
@@ -28,5 +37,6 @@ echo "Installation started..."
 
 sudo apt-get update
 
+install_build_tools
 install_sqlite3
 
