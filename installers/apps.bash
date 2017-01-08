@@ -3,10 +3,10 @@
 PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
 cd "$PARENT_PATH"
 
-install_vim()
-{
+#install_vim()
+#{
 
-}
+#}
 
 install_sqlite3()
 {
