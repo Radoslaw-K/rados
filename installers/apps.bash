@@ -3,6 +3,10 @@
 PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
 cd "$PARENT_PATH"
 
+install_vim()
+{
+
+}
 
 install_sqlite3()
 {
@@ -33,6 +37,11 @@ sudo apt-get install -y cmatrix redshift
 }
 
 
+install_general()
+{
+sudo apt-get -y install tree httpie terminator silversearcher-ag strace screen inotify-tools
+}
+
 ##################################    MAIN   ###############################################
 
 if [ $USER == "root" ]; then
@@ -45,6 +54,7 @@ echo "Installation started..."
 
 sudo apt-get update
 
+install_general
 install_build_tools
 install_sqlite3
 install_python_tools
