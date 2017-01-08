@@ -1,5 +1,8 @@
 #!/bin/bash
 
+PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
+cd "$PARENT_PATH"
+
 
 install_sqlite3()
 {
@@ -8,15 +11,12 @@ sudo apt-get install -y sqlite3
 
 echo "Adding custom config for sqlite3 package"
 cp ../dotfiles/.sqliterc /home/$USER/.sqliterc
-
-exit 0
 }
 
 
 install_build_tools()
 {
 sudo apt-get install -y bison libtool build-essential autotools-dev automake
-exit 0
 }
 
 
@@ -24,14 +24,12 @@ install_python_tools()
 {
 sudo apt-get install -y python-pip
 sudo pip install flake8 coverage ipython pexpect
-exit 0
 }
 
 
 install_extras()
 {
 sudo apt-get install -y cmatrix redshift
-exit 0
 }
 
 
