@@ -7,12 +7,7 @@ echo "Installing sqlite3 package"
 sudo apt-get install -y sqlite3
 
 echo "Adding custom config for sqlite3 package"
-
-SQLITE_RC="\
-.header on
-.mode column\n"
-
-printf "$SQLITE_RC" > /home/$USER/.sqliterc
+cp ../dotfiles/.sqliterc /home/$USER/.sqliterc
 
 exit 0
 }
