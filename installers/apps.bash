@@ -35,7 +35,7 @@ exit 0
 
 install_extras()
 {
-sudo apt-get -y install cmatrix redshift
+sudo apt-get install -y cmatrix redshift
 exit 0
 }
 
