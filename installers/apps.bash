@@ -25,6 +25,21 @@ exit 0
 }
 
 
+install_python_tools()
+{
+sudo apt-get install -y python-pip
+sudo pip install flake8 coverage ipython pexpect
+exit 0
+}
+
+
+install_extras()
+{
+sudo apt-get -y install cmatrix redshift
+exit 0
+}
+
+
 ##################################    MAIN   ###############################################
 
 if [ $USER == "root" ]; then
@@ -39,4 +54,5 @@ sudo apt-get update
 
 install_build_tools
 install_sqlite3
-
+install_python_tools
+install_extras
