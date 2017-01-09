@@ -12,6 +12,19 @@ install_git()
 {
 sudo apt-get install -y git
 
+git config --global user.name Radoslaw Kieltyka
+git config --global user.email rkieltyka@dataplicity.com
+git config credential.helper 'cache --timeout=9000'
+
+git remote add wf-specialproj-pub https://github.com/wildfoundry/specialprojects-public
+git remote add wf-specialproj-priv https://github.com/wildfoundry/specialprojects
+git remote add wf-wfos https://github.com/wildfoundry/wf-os
+git remote add rados https://github.com/Radoslaw-K/rados
+
+vimcheck=$(vim --version | head -n 1 | tr " " "\n" | head -n 1)
+if [ $vimcheck == "VIM" ]; then 
+    git config --global core.editor vim
+fi
 }
 
 
@@ -61,6 +74,7 @@ echo "Installation started..."
 
 sudo apt-get update
 
+install_git
 install_general
 install_build_tools
 install_sqlite3
