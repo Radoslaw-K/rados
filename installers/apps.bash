@@ -8,6 +8,14 @@ cd "$PARENT_PATH"
 
 #}
 
+install_git()
+{
+sudo apt-get install -y git
+
+
+}
+
+
 install_sqlite3()
 {
 echo "Installing sqlite3 package"
