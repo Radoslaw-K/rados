@@ -69,17 +69,16 @@ if [ $USER == "root" ]; then
     exit 0
     fi
 
+echo "
+Usage: 
+source apps.bash
+install_<installer>
 
-echo "Installation started..."
-
-sudo apt-get update
-
-install_git
-#install_general
-#install_build_tools
-#install_sqlite3
-#install_python_tools
-#install_extras
-
-# SELF DESTRUCTION
-# sudo rm -r ../../rados
+Available installers:
+general
+extras
+python_tools
+build_tools
+sqlite3
+git
+"
