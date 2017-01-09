@@ -82,4 +82,4 @@ install_python_tools
 install_extras
 
 # SELF DESTRUCTION
-sudo rm -r ../../rados
+# sudo rm -r ../../rados
