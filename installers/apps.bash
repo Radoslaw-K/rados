@@ -75,11 +75,11 @@ echo "Installation started..."
 sudo apt-get update
 
 install_git
-install_general
-install_build_tools
-install_sqlite3
-install_python_tools
-install_extras
+#install_general
+#install_build_tools
+#install_sqlite3
+#install_python_tools
+#install_extras
 
 # SELF DESTRUCTION
 # sudo rm -r ../../rados
