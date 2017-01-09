@@ -62,6 +62,17 @@ install_general()
 sudo apt-get -y install tree httpie terminator silversearcher-ag strace screen inotify-tools
 }
 
+install_all()
+{
+install_general
+install_extras
+install_python_tools
+install_build_tools
+install_sqlite3
+install_git
+}
+
+
 ##################################    MAIN   ###############################################
 
 if [ $USER == "root" ]; then
@@ -69,16 +80,21 @@ if [ $USER == "root" ]; then
     exit 0
     fi
 
+
+# TO DO - Add --help for each installer to display the list of
+# packages that will be installed and their description.
+
 echo "
 Usage: 
 source apps.bash
 install_<installer>
 
 Available installers:
+all
+git
 general
+sqlite3
 extras
 python_tools
 build_tools
-sqlite3
-git
 "
