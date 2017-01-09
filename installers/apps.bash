@@ -5,6 +5,8 @@ cd "$PARENT_PATH"
 
 install_vim()
 {
+# TO DO - check whether curl is installed
+
 sudo apt-get install -y vim
 
 echo "Adding custom config for vim"
@@ -75,6 +77,18 @@ install_general()
 sudo apt-get -y install tree httpie terminator silversearcher-ag strace screen inotify-tools
 }
 
+install_prompt_strings()
+{
+# TO DO - Check whether git is installed
+# Check whether tee is installed
+user_ps_command="export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w$(__git_ps1 " <%s>") \$\[\033[00m\] '"
+
+root_ps_command="export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w #\[\033[00m\] '"
+
+echo $user_ps_command >> /home/$USER/.bashrc
+echo $root_ps_command | sudo tee --append /root/.bashrc
+}
+
 install_all()
 {
 install_general
@@ -84,6 +98,7 @@ install_build_tools
 install_sqlite3
 install_git
 install_vim
+install_prompt_strings
 }
 
 
@@ -107,6 +122,7 @@ Available installers:
 all
 git
 vim
+prompt_strings
 general
 sqlite3
 extras
