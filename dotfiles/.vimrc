@@ -32,13 +32,6 @@ set expandtab
 set list
 set list listchars=tab:→\ ,trail:·
 
-" Auto pairing (Easy way but involves copy/paste issues)
-"inoremap { {}<Left>
-"inoremap ( ()<Left>
-"inoremap [ []<Left>
-"inoremap < <><Left>
-"inoremap ' ''<Left>
-
 " Set up vim-airline
 set laststatus=2
 "let g:airline_powerline_fonts = 1
