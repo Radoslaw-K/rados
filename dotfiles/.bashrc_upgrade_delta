@@ -1,13 +1,3 @@
-# Prompt string colors and git branch visible
-export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w$(__git_ps1 " <%s>") \$\[\033[00m\] '
-
-# Enable 256 bit color scheme in terminal for Vim
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-    export TERM='xterm-256color'
-else
-    export TERM='xterm-color'
-fi
-
 # Use "cdt" command to change directory and show its tree
 cdt() {
     cd $1 
