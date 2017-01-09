@@ -8,4 +8,4 @@
 
 Run the master installer using this command:
 
-`git clone -b dotfiles_new_installers https://github.com/Radoslaw-K/rados/ && rados/installers/apps.bash `
+`git clone -b dotfiles_new_installers https://github.com/Radoslaw-K/rados/ && cd rados/installers/ && source apps.bash `
