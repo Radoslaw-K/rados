@@ -3,10 +3,23 @@
 PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
 cd "$PARENT_PATH"
 
-#install_vim()
-#{
+install_vim()
+{
+sudo apt-get install -y vim
 
-#}
+echo "Adding custom config for vim"
+cp ../dotfiles/.vimrc /home/$USER/
+
+echo "Updating .bashrc for vim"
+printf "\n\n" >> /home/$USER/.bashrc
+cat ../dotfiles/dependencies/bashrc_vimrc.update >> /home/$USER/.bashrc
+
+echo "Downloading plugin installer for vim"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+echo "Starting the installation of vim plugins"
+vim +PlugInstall +qall
+}
 
 install_git()
 {
@@ -34,7 +47,7 @@ echo "Installing sqlite3 package"
 sudo apt-get install -y sqlite3
 
 echo "Adding custom config for sqlite3 package"
-cp ../dotfiles/.sqliterc /home/$USER/.sqliterc
+cp ../dotfiles/.sqliterc /home/$USER/
 }
 
 
@@ -70,6 +83,7 @@ install_python_tools
 install_build_tools
 install_sqlite3
 install_git
+install_vim
 }
 
 
@@ -92,6 +106,7 @@ install_<installer>
 Available installers:
 all
 git
+vim
 general
 sqlite3
 extras
