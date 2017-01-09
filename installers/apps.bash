@@ -1,7 +1,9 @@
 #!/bin/bash
 
+
 PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
 cd "$PARENT_PATH"
+
 
 install_vim()
 {
@@ -22,6 +24,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 echo "Starting the installation of vim plugins"
 vim +PlugInstall +qall
 }
+
 
 install_git()
 {
@@ -77,6 +80,7 @@ install_general()
 sudo apt-get -y install tree httpie terminator silversearcher-ag strace screen inotify-tools
 }
 
+
 install_prompt_strings()
 {
 # TO DO - Check whether git is installed
@@ -89,6 +93,14 @@ echo $user_ps_command >> /home/$USER/.bashrc
 echo $root_ps_command | sudo tee --append /root/.bashrc >> /dev/null
 }
 
+
+install_bashrc_extras()
+{
+printf "\n\n" >> /home/$USER/.bashrc
+cat ../dotfiles/dependencies/bashrc_commands.extras >> /home/$USER/.bashrc
+}
+
+
 install_all()
 {
 install_general
@@ -99,6 +111,7 @@ install_sqlite3
 install_git
 install_vim
 install_prompt_strings
+install_bashrc_extras
 }
 
 
@@ -107,7 +120,7 @@ install_prompt_strings
 if [ $USER == "root" ]; then
     echo "[ERROR] Not allowed to run script as: $USER. Please log in as a different user."
     exit 0
-    fi
+fi
 
 
 # TO DO - Add --help for each installer to display the list of
@@ -128,4 +141,5 @@ sqlite3
 extras
 python_tools
 build_tools
+bashrc_extras
 "
