@@ -86,7 +86,7 @@ user_ps_command="export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroo
 root_ps_command="export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w #\[\033[00m\] '"
 
 echo $user_ps_command >> /home/$USER/.bashrc
-echo $root_ps_command | sudo tee --append /root/.bashrc
+echo $root_ps_command | sudo tee --append /root/.bashrc >> /dev/null
 }
 
 install_all()
