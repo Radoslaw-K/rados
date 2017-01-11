@@ -107,6 +107,13 @@ echo $root_ps_command | sudo tee --append /root/.bashrc > /dev/null
 }
 
 
+install_bashrc_extras()
+{
+printf "\n\n" >> /home/$USER/.bashrc
+cat ../dotfiles/dependencies/bashrc_commands.extras >> /home/$USER/.bashrc
+}
+
+
 install_all()
 {
 install_general
@@ -117,6 +124,7 @@ install_sqlite3
 install_git
 install_vim
 install_prompt_strings
+install_bashrc_extras
 }
 
 
@@ -125,7 +133,7 @@ install_prompt_strings
 if [ $USER == "root" ]; then
     echo "[ERROR] Not allowed to run script as: $USER. Please log in as a different user."
     exit 0
-    fi
+fi
 
 
 # TO DO - Add --help for each installer to display the list of
@@ -146,4 +154,5 @@ sqlite3
 extras
 python_tools
 build_tools
+bashrc_extras
 "
