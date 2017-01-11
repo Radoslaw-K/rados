@@ -1,11 +1,16 @@
 #!/bin/bash
 
+# Allow for relative paths
 PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
 cd "$PARENT_PATH"
 
+
 install_vim()
 {
-# TO DO - check whether curl is installed
+curlcheck=$(curl --version | head -n 1 | tr " " "\n" | head -n 1)
+if [ $curlcheck != "curl" ]; then 
+    sudo apt-get install -y curl
+fi
 
 sudo apt-get install -y vim
 
@@ -22,6 +27,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 echo "Starting the installation of vim plugins"
 vim +PlugInstall +qall
 }
+
 
 install_git()
 {
@@ -77,17 +83,29 @@ install_general()
 sudo apt-get -y install tree httpie terminator silversearcher-ag strace screen inotify-tools
 }
 
+
 install_prompt_strings()
 {
-# TO DO - Check whether git is installed
-# Check whether tee is installed
-user_ps_command="export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w$(__git_ps1 " <%s>") \$\[\033[00m\] '"
+
+teecheck=$(tee --version | head -n 1 | tr " " "\n" | head -n 1)
+if [ $teecheck != "tee" ]; then 
+    sudo apt-get install -y tee
+fi
+
+gitcheck=$(git --version | head -n 1 | tr " " "\n" | head -n 1)
+if [ $gitcheck == "git" ]; then
+    user_ps_command="export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w $(__git_ps1 " <%s>") \$\[\033[00m\] '"
+else
+    user_ps_command="export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \$\[\033[00m\] '"
+fi
+
 
 root_ps_command="export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w #\[\033[00m\] '"
 
 echo $user_ps_command >> /home/$USER/.bashrc
-echo $root_ps_command | sudo tee --append /root/.bashrc >> /dev/null
+echo $root_ps_command | sudo tee --append /root/.bashrc > /dev/null
 }
+
 
 install_all()
 {
