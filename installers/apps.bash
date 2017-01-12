@@ -61,7 +61,7 @@ cp ../dotfiles/.sqliterc /home/$USER/
 
 install_build_tools()
 {
-sudo apt-get install -y bison libtool build-essential autotools-dev automake
+sudo apt-get install -y bison libtool build-essential autotools-dev automake zlib1g-dev libglib2.0-dev libpixman-1-dev flex
 }
 
 
